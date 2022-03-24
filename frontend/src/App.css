@@ -1,0 +1,107 @@
+body {
+  /* --tw-bg-opacity: 1; */
+    /* background-color: rgb(8 8 13/var(--tw-bg-opacity)); */
+    /* background-color: rgb(22, 82, 240); */
+    background-color: white;
+}
+
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  /* margin-top: 64px; */
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 79px;
+}
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 950px;
+  align-items: center;
+}
+
+.footer-container {
+  margin-bottom: 50px;
+}
+
+.footer-container > a {
+  color: black;
+  text-decoration: underline;
+  color: black;
+}
+
+.header {
+  text-align: center;
+  font-size: 52px;
+  font-weight: 600;
+}
+
+.slogan {
+  margin-top: 19px;
+}
+
+.rinkeby-only {
+  margin-top: 115px;
+  font-size: 22px;
+  width: 550px;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 9999px;
+  font-size: 1.2rem;
+  background-color: #2081e2;;
+  text-transform: uppercase;
+  color: white;
+  font-family: Poppins, sans-serif;
+  font-weight: 600;
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+.buy-and-sell-button-container {
+  display: flex;
+  width: 250px;
+  margin-top: 22px;
+  justify-content: space-between;
+}
+
+.test-eth {
+  font-size: 15px;
+  margin-top: 25px;
+}
+
+.test-eth>a {
+  text-decoration: underline;
+  color: black;
+}
+
+.token-amounts {
+  margin-top: 70px;
+  font-family: "Poppins",sans-serif;
+  text-align: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 20px;
+}
+
+.eth-symbol {
+  color: #2081e2;
+}
+
