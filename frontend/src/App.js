@@ -10,7 +10,7 @@ import ReactDom from "react-dom";
 
 //constants
 const vendorContractAddress = '0xD29aeB7fcB7Af310951E9e308134eD624b7CF95b';
-const tokenContractAddress = '0xD29aeB7fcB7Af310951E9e308134eD624b7CF95b';
+const tokenContractAddress = '0x88968a54b42de735508113aa398aE5a02210712a';
 const vendorContractAbi = vendorContractABI.abi;
 const tokenContractAbi = tokenContractABI.abi;
 const vendorContractEtherscanLink = `https://rinkeby.etherscan.io/address/${vendorContractAddress}`;
