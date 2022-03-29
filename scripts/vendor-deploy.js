@@ -4,7 +4,7 @@ const main = async () => {
     const [owner] = await hre.ethers.getSigners();
     console.log("Deploying contract with account: ", owner.address);
     const vendorContractFactory = await hre.ethers.getContractFactory("Vendor");
-    const vendorContract = await vendorContractFactory.deploy("0xb5Bc7dF5832057b51985029D7940Ef7A3c3da653");
+    const vendorContract = await vendorContractFactory.deploy("0x88968a54b42de735508113aa398aE5a02210712a");
     await vendorContract.deployed();
     console.log("Contract deployed to:", vendorContract.address);
 };
