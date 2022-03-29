@@ -7,11 +7,11 @@
   <link rel="apple-touch-icon" href="%PUBLIC_URL%/facicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/facicon.ico" />
   <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/facicon.ico" />
-  
-<!--google fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!--google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
@@ -36,5 +36,26 @@
   <div id="portal"></div>
 </body>
 
+<script>
+  //the below code is for changing the 'You must fill out this form' message on the input in the popup modal 
+  const observer = new MutationObserver((mutations, obs) => {
+    const textarea = document.getElementById('token-amount');
+    if (textarea) {
+      textarea.oninvalid = function (e) {
+        e.target.setCustomValidity("Yo! You gotta enter an amount! 🐸");
+      };
+      textarea.oninput = function (e) {
+        e.target.setCustomValidity("");
+      };
+      obs.disconnect();
+      return;
+    }
+  });
+  observer.observe(document, {
+    childList: true, //Set to true to monitor the target node (document)
+    subtree: true //set to true to monitor the all target node's descendents 
+  });
+
+</script>
 
 </html>

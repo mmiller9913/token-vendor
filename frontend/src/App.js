@@ -30,12 +30,19 @@ const App = () => {
   const checkIfWalletIsConnected = async () => {
     try {
       const { ethereum } = window;
-
       if (!ethereum) {
-        console.log("Make sure you have Metamask installed!");
+        toast.error(`Please download Metamask!`, {
+          position: "top-right",
+          autoClose: 3500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         return;
       } else {
-        console.log("We have the ethereum object", ethereum);
+        console.log("We have the ethereum object:", ethereum);
         let chainId = await ethereum.request({ method: 'eth_chainId' });
         console.log("Connected to chain " + chainId);
         setNetwork(networks[chainId]);
@@ -64,6 +71,7 @@ const App = () => {
   }
 
   const fetchTokenInfo = async () => {
+    console.log('Fetching the token info...');
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -101,6 +109,33 @@ const App = () => {
       console.log(error);
     }
   }
+
+  // USE EFFECTS
+  useEffect(() => {
+    checkIfWalletIsConnected();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    //since fetchTokenInfo() needs the account, must be defined for it to run
+    if(currentAccount) {
+      fetchTokenInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentAccount]);
+
+  //listen for chain changes
+  useEffect(() => {
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', () => {
+        window.location.reload();
+      })
+
+      window.ethereum.on('accountsChanged', () => {
+        window.location.reload();
+      })
+    }
+  })
 
   //HANDLERS
   const connectWallet = async () => {
@@ -216,11 +251,11 @@ const App = () => {
         //need to grant approval before selling token
         setIsGrantingApproval(true);
         //the below  is needed to use BigInt
-        /* global BigInt */ 
+        /* global BigInt */
         //1000000000000000000 b/c that is the wei equivalent of 1 token 
         //1 frog = 1000000000000000000 wei frog; just like...
         //1 eth = 1000000000000000000 wei
-        let constant = "1000000000000000000"; 
+        let constant = "1000000000000000000";
         //need to convert constant * amount to a BigInt b/c the value is too large otherwise
         let amountOfTokensUserIsSellingInWei = BigInt(constant * amount);
         const approvalTxn = await tokenContract.approve(vendorContractAddress, amountOfTokensUserIsSellingInWei);
@@ -418,8 +453,9 @@ const App = () => {
                 <input
                   type="number"
                   min="0"
+                  step="0.00000001"
                   id="token-amount"
-                  autocomplete="off"
+                  autoComplete="off"
                   required />
               </div>
               <button type="submit">
@@ -433,28 +469,6 @@ const App = () => {
     }
   }
 
-  // USE EFFECTS
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
-
-  useEffect(() => {
-    fetchTokenInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentAccount]);
-
-  //listen for chain changes
-  useEffect(() => {
-    if (window.ethereum) {
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      })
-
-      window.ethereum.on('accountsChanged', () => {
-        window.location.reload();
-      })
-    }
-  })
 
   return (
     <div className="outerContainer">
