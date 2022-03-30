@@ -82,9 +82,9 @@ const App = () => {
 
         //get amount of tokens owned by the user
         const amountOfTokensUserOwnsInWei = await tokenContract.balanceOf(currentAccount);
-        let amountOfTokenUserOwns = ethers.utils.formatEther(amountOfTokensUserOwnsInWei);
+        let amountOfTokenUserOwns = Number(ethers.utils.formatEther(amountOfTokensUserOwnsInWei)).toFixed(2);
         console.log(`You currently own ${amountOfTokenUserOwns} FROG`);
-        if (amountOfTokenUserOwns === '0.0') {
+        if (amountOfTokenUserOwns === '0.00') {
           amountOfTokenUserOwns = '0';
         }
         setTokenAmountOwnedByUser(amountOfTokenUserOwns);
@@ -188,9 +188,10 @@ const App = () => {
         const vendorContract = new ethers.Contract(vendorContractAddress, vendorContractAbi, signer);
 
         //purchase token
-        let amountOfEthToSend = amount * tokenCostInEth;
+        //need .toFixed because having problems when multiplying decimals together, this caps the length 
+        let amountOfEthToSend = (amount * tokenCostInEth).toFixed(7);
         console.log("Amount of eth to send", amountOfEthToSend);
-        const tokenTxn = await vendorContract.buyTokens({ value: ethers.utils.parseEther(amountOfEthToSend.toString()) });
+        const tokenTxn = await vendorContract.buyTokens({ value: ethers.utils.parseEther(amountOfEthToSend.toString())});
         console.log("Buying token...Here's the transaction hash:", tokenTxn.hash);
         toast.success("Purchasing FROG... 🐸 ", {
           position: "top-right",
@@ -375,7 +376,7 @@ const App = () => {
       return (
         <div className='token-amounts'>
           {<h1>You currently own {tokenAmountOwnedByUser} FROG</h1>}
-          {<h1>There are {tokensAvailableForPurchase} FROG available to purchase</h1>}
+          {<h1>There are {Number(tokensAvailableForPurchase).toFixed(2)} FROG available to purchase</h1>}
           {<h1>1 FROG costs <span className='eth-symbol'>Ξ</span>{tokenCostInEth}</h1>}
         </div>
       )
@@ -453,7 +454,7 @@ const App = () => {
                 <input
                   type="number"
                   min="0"
-                  step="0.00000001"
+                  step="0.001"
                   id="token-amount"
                   autoComplete="off"
                   required />
