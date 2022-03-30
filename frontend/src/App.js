@@ -436,7 +436,7 @@ const App = () => {
       return ReactDom.createPortal(
         <div className="container" ref={modalRef} onClick={closeModal}>
           <div className="modal">
-            {<h2>Please enter a whole number of FROG tokens to {isBuyingToken ? 'buy' : (isSellingToken ? 'sell' : '')}</h2>}
+            {<h2>How many FrogCoins would you like to {isBuyingToken ? 'buy' : (isSellingToken ? 'sell' : '')}?</h2>}
             <button className='x-button' onClick={() => endTransaction()}>X</button>
             <form className='form' onSubmit={(event) => {
               event.preventDefault();
